@@ -1,1 +1,33 @@
+name: DevOps Maven Workflow
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+      - uses: actions/checkout@v2
+        run:  
+           java -version
+           mvn -version
+
+      - name: Validate POM.xml file
+        run: mvn validate
+
+      - name: Compile
+        run: mvn compile
+
+      - name: Test
+        run: mvn test
+
+      - name: Clean
+        run: mvn clean
+
+      - name: Package
+        run: mvn package
