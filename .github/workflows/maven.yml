@@ -20,3 +20,15 @@ jobs:
         ls -lrth
     - name: Validating POM.xml file
       run: mvn validate
+
+    - name: Compile
+      run: mvn compile
+
+    - name: Test
+      run: mvn test
+
+    - name: Clean
+      run: mvn clean
+
+    - name: Package
+      run: mvn package
