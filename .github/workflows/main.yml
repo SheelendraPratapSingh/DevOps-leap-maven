@@ -2,32 +2,34 @@ name: DevOps Maven Workflow
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
-    name: Build and Test
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-      - uses: actions/checkout@v2
-        run:  
-           java -version
-           mvn -version
+    - uses: actions/checkout@v2
+    - name: Checking maven/java version
+      run: |
+        java -version
+        mvn -version
+        ls -lrth
+        
+    - name: Validating POM.xml file
+      run: mvn validate
 
-      - name: Validate POM.xml file
-        run: mvn validate
+    - name: Compile
+      run: mvn compile
 
-      - name: Compile
-        run: mvn compile
+    - name: Test
+      run: mvn test
 
-      - name: Test
-        run: mvn test
+    - name: Clean
+      run: mvn clean
 
-      - name: Clean
-        run: mvn clean
-
-      - name: Package
-        run: mvn package
+    - name: Package
+      run: mvn package
