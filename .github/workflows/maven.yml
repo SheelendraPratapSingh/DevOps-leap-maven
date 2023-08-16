@@ -33,3 +33,18 @@ jobs:
 
     - name: Package
       run: mvn package
+
+    - name:  Create package
+      run: |
+        mvn package
+        ls -lrth target/
+        
+    - name:  Execute Jar 
+      run: java -cp target/HelloWorld-1.0-SNAPSHOT.jar com.example.App
+  
+        
+    - name: Uplaod artifact in workflow
+      uses: actions/upload-artifact@v3
+      with:
+          name: maven-demo-artifact
+          path: target/HelloWorld-1.0-SNAPSHOT.jar
